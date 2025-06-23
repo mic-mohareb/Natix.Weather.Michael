@@ -1,0 +1,6 @@
+@Natix.Weather.API_HostAddress = http://localhost:5151
+
+GET {{Natix.Weather.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

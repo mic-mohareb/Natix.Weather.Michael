@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:7.2
+    container_name: natix-redis
+    ports:
+      - "6379:6379"
+
+  natix.weather.api:
+    image: ${DOCKER_REGISTRY-}natixweatherapi
+    build:
+      context: .
+      dockerfile: Natix.Weather.API/Dockerfile
+    container_name: natix-weather-api
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - REDIS__CONNECTION=natix-redis:6379,abortConnect=false
+    depends_on:
+      - redis
